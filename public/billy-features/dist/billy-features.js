@@ -110,8 +110,6 @@ const listeners = new Map();
 const handleMessage = (e) => {
     const eventName = e.data.name;
     const handlers = listeners.get(eventName) || [];
-    console.log('handleMessage event: ', e);
-    console.log('handleMessage handlers: ', handlers);
     handlers.forEach((handler) => handler(e.data.payload));
 };
 exports.addListener = (eventName, handler) => {
@@ -133,7 +131,6 @@ exports.sendEvent = (eventName, eventData) => {
     const event = { name: eventName, payload: eventData };
     if (isIframe()) {
         // const frame = (window as unknown as HTMLFrameElement).contentWindow;
-        console.log('window.location.origin', window.location.origin);
         window.parent.postMessage(event, window.location.origin);
     }
     else {

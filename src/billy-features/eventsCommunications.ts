@@ -1,4 +1,4 @@
-import { IDataHandler, IMessageEventHandler, IListeners } from "./types";
+import { IDataHandler } from "./types";
 
 const listeners: Map<string, IDataHandler[]> = new Map();
 
@@ -17,7 +17,6 @@ export const addListener = (
     window.addEventListener('message', handleMessage);  
   }
   listeners.set(eventName, [...handlers, handler]);
-  console.log('listeners', listeners);
 };
 
 export const removeListener = (
@@ -34,8 +33,8 @@ export const removeListener = (
 export const sendEvent = (eventName: string, eventData: any) => {
   const event = { name: eventName, payload: eventData };
   if (isIframe()) {
-    const frame = (window as unknown as HTMLFrameElement).contentWindow;
-    frame && window.parent.postMessage(event, window.location.origin);
+    // const frame = (window as unknown as HTMLFrameElement).contentWindow;
+    window.parent.postMessage(event, window.location.origin);
   } else {
     const frames = window.frames;
     window.postMessage(event, window.origin);

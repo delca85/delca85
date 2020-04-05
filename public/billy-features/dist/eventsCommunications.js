@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const listeners = new Map();
 const handleMessage = (e) => {
-    const eventName = e.data.eventName;
+    const eventName = e.data.name;
     const handlers = listeners.get(eventName) || [];
     handlers.forEach((handler) => handler(e.data.payload));
 };
@@ -24,8 +24,8 @@ exports.removeListener = (eventName, handler) => {
 exports.sendEvent = (eventName, eventData) => {
     const event = { name: eventName, payload: eventData };
     if (isIframe()) {
-        const frame = window.contentWindow;
-        frame && window.parent.postMessage(event, frame.location.origin);
+        // const frame = (window as unknown as HTMLFrameElement).contentWindow;
+        window.parent.postMessage(event, window.location.origin);
     }
     else {
         const frames = window.frames;
