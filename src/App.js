@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Iframe from './Iframe.js';
+import ChildComponent from './ChildComponent.js';
 import { addListener, removeListener, sendEvent } from './billy-features/index.ts';
 
 const App = () => {
@@ -20,9 +20,10 @@ const App = () => {
 
     return <div>
             <h1>Parent Window</h1>
-            <p>Got Message:</p><input value={value}></input>
-        <p>Send Message<button onClick={ onButtonClick } >Hi iFrame!</button></p>
-                <iframe src="http://localhost:3000/iframe.html"></iframe>
+            <p>Got Message:</p><input value={value} readOnly></input>
+            <p>Send Message<button onClick={ onButtonClick } >Hi iFrame!</button></p>
+            <iframe style={{width: '700px'}} src="http://localhost:3000/iframe.html"></iframe>
+            <ChildComponent />
             </div>
     
 }
