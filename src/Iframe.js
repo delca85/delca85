@@ -7,8 +7,8 @@ const Iframe = ({ source }) => {
     }
     return (
         // basic bootstrap classes. you can change with yours.
-        <div className="col-md-12">
-            <div className="emdeb-responsive">
+        <div >
+            <div >
                 <iframe src={source}></iframe>
             </div>
         </div>

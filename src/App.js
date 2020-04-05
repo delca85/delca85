@@ -18,11 +18,11 @@ const App = () => {
         sendEvent('randomNumberFromParent', Math.random());
     }
 
-    return <div className="App">
+    return <div>
             <h1>Parent Window</h1>
             <p>Got Message:</p><input value={value}></input>
-            <p>Send Message<button onClick={onButtonClick} >Hi iFrame!</button></p>
-                <Iframe id="the-iframe" source="http://localhost:3000/iframe.html" />
+        <p>Send Message<button onClick={ onButtonClick } >Hi iFrame!</button></p>
+                <iframe src="http://localhost:3000/iframe.html"></iframe>
             </div>
     
 }
