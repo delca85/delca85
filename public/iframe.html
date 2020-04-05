@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- <script type="text/javascript" src="../src/billy-features/eventsCommunications.ts"></script> -->
+    <script text="application/json" src="./billy-features/dist/billy-features.js"></script>
     <title>iframe Window</title>
     <style>
         body {
@@ -18,13 +18,6 @@
     <p>Got Message:<input type="text" id="results"/></p>
 
     <script>
-        var results = document.getElementById('results')
-        function onClick(){
-            results.value = "pippo"
-        }
-    </script>
-    
-    <script text="application/json" src="./billy-features/dist/billy-features.js">
         function handleEvent(event) {
             console.log('event', event)
             document.getElementById("input").value = event.payload;
@@ -39,21 +32,12 @@
             }
         }
 
-        bindEvent(messageButton, 'click', function (e) {
-            var random = Math.random();
-            window.parent.postMessage(random, '*');
-            results.value = 'pippo';
-
-        });
-
         var results = document.getElementById('results'),
             messageButton = document.getElementById('message_button');
 
-        // Listen to messages from parent window
-        bindEvent(window, 'message', function (e) {
+        function onClick(){
             window.parent.postMessage(Math.random());
-            document.getElementById('results').value = 'pippo';
-        });
+        }
 
     </script>
 
