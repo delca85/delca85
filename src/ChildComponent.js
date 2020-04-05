@@ -8,9 +8,9 @@ const ChildComponent = () => {
     const handler = number => setValue(number)
 
     useEffect(() => {
-        addListener('randomNumberFromParent', handler)
+        addListener('randomNumber', handler)
         return () => {
-            removeListener('randomNumberFromParent', handler)
+            removeListener('randomNumber', handler)
         }
     }, []);
 

@@ -15,7 +15,7 @@ const App = () => {
     }, []);
 
     const onButtonClick = () => {
-        sendEvent('randomNumberFromParent', Math.random());
+        sendEvent('randomNumber', Math.random());
     }
 
     return <div>
