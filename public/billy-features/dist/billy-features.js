@@ -130,9 +130,11 @@ exports.removeListener = (eventName, handler) => {
 };
 exports.sendEvent = (eventName, eventData) => {
     const event = { name: eventName, payload: eventData };
+    console.log('eventName1', eventName);
     if (isIframe()) {
-        const frame = window.contentWindow;
-        frame && window.parent.postMessage(event, frame.location.origin);
+        // const frame = (window as unknown as HTMLFrameElement).contentWindow;
+        console.log('window.location.origin', window.location.origin);
+        window.parent.postMessage(event, window.location.origin);
     }
     else {
         const frames = window.frames;
