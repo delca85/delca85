@@ -18,9 +18,8 @@
     <p>Got Message:<input type="text" id="results"/></p>
 
     <script>
-        function handleEvent(event) {
-            console.log('event', event)
-            document.getElementById("input").value = event.payload;
+        function handleEvent(number) {
+            document.getElementById("input").value = number;
         }
         // addListener('randomNumber', () => console.log('arriva'));
 
@@ -38,6 +37,12 @@
         function onClick(){
             sendEvent('randomNumber', Math.random());
         }
+
+        function setInputValue(number) {
+            results.value = number;
+        }
+
+        addListener('randomNumberFromParent', setInputValue);
 
     </script>
 

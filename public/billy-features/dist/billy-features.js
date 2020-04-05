@@ -108,12 +108,13 @@ return /******/ (function(modules) { // webpackBootstrap
 Object.defineProperty(exports, "__esModule", { value: true });
 const listeners = new Map();
 const handleMessage = (e) => {
-    const eventName = e.data.eventName;
+    const eventName = e.data.name;
     const handlers = listeners.get(eventName) || [];
+    console.log('handleMessage event: ', e);
+    console.log('handleMessage handlers: ', handlers);
     handlers.forEach((handler) => handler(e.data.payload));
 };
 exports.addListener = (eventName, handler) => {
-    console.log('eventName++++++++', eventName);
     const handlers = listeners.get(eventName) || [];
     if (!handlers.length) {
         window.addEventListener('message', handleMessage);
@@ -130,7 +131,6 @@ exports.removeListener = (eventName, handler) => {
 };
 exports.sendEvent = (eventName, eventData) => {
     const event = { name: eventName, payload: eventData };
-    console.log('eventName1', eventName);
     if (isIframe()) {
         // const frame = (window as unknown as HTMLFrameElement).contentWindow;
         console.log('window.location.origin', window.location.origin);
