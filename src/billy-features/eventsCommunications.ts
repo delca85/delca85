@@ -1,39 +1,40 @@
-import { IDataHandler } from "./types";
+import { IDataHandler, IMessageEventHandler, IListeners } from "./types";
 
-const listeners = {};
+const listeners: Map<string, IDataHandler[]> = new Map();
 
 const handleMessage = (e: MessageEvent) => {
   const eventName = e.data.eventName;
-  const handlers = listeners[eventName] || [];
-  handlers.forEach(handler => handler(e.data.payload));
+  const handlers = listeners.get(eventName) || [];
+  handlers.forEach((handler: IDataHandler) => handler(e.data.payload));
 }
 
 export const addListener = (
   eventName: string,
   handler: IDataHandler,
 ) => {
-  const handlers = listeners[eventName] || [];
+  const handlers = listeners.get(eventName) || [];
   if (!handlers.length) {
     window.addEventListener('message', handleMessage);  
   }
-  listeners[eventName] = [...handlers, handler];
+  listeners.set(eventName, [...handlers, handler]);
 };
 
 export const removeListener = (
   eventName: string,
   handler: IDataHandler
 ) => {
-  listeners[eventName] = listeners[eventName].filter(handlerEvent => handlerEvent !== handler);
-  if (!listeners[eventName].length) {
+  const actualListeners = listeners.get(eventName) || [];
+  listeners.set(eventName, actualListeners.filter(handlerEvent => handlerEvent !== handler));
+  if (!listeners.get(eventName)?.length) {
     window.removeEventListener('message', handleMessage);
   }
 }
 
-export const sendEvent = (eventName: string, eventData) => {
+export const sendEvent = (eventName: string, eventData: any) => {
   const event = { name: eventName, payload: eventData };
   if (isIframe()) {
     const frame = (window as unknown as HTMLFrameElement).contentWindow;
-    window.parent.postMessage(event, frame.location.origin);
+    frame && window.parent.postMessage(event, frame.location.origin);
   } else {
     const frames = window.frames;
     window.postMessage(event, window.origin);

@@ -2,20 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <!-- <script type="text/javascript" src="../src/billy-features/eventsCommunications.ts"></script> -->
     <title>iframe Window</title>
     <style>
         body {
             background-color: #D53C2F;
             color: white;
+            width: 700px;
         }
     </style>
 </head>
 <body>
-
     <h1>Hello there, i'm an iframe</h1>
-    <p>Send Message: <button id="message_button">Hi parent</button></p>
-    <p>Got Message:</p>
-    <div id="results"></div>
+    <p>Send Message: <button id="message_button" onclick="onClick()">Hi parent!</button></p>
+    <p>Got Message:<input type="text" id="results"/></p>
+
+    <script>
+        var results = document.getElementById('results')
+        function onClick(){
+            results.value = "pippo"
+        }
+    </script>
+    
+    <script text="application/json" src="./billy-features/dist/billy-features.js">
+        function handleEvent(event) {
+            console.log('event', event)
+            document.getElementById("input").value = event.payload;
+        }
+        // addListener('randomNumber', () => console.log('arriva'));
+
+        function bindEvent(element, eventName, eventHandler) {
+            if (element.addEventListener) {
+                element.addEventListener(eventName, eventHandler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent('on' + eventName, eventHandler);
+            }
+        }
+
+        bindEvent(messageButton, 'click', function (e) {
+            var random = Math.random();
+            window.parent.postMessage(random, '*');
+            results.value = 'pippo';
+
+        });
+
+        var results = document.getElementById('results'),
+            messageButton = document.getElementById('message_button');
+
+        // Listen to messages from parent window
+        bindEvent(window, 'message', function (e) {
+            window.parent.postMessage(Math.random());
+            document.getElementById('results').value = 'pippo';
+        });
+
+    </script>
 
     <!-- <script>
         // addEventListener support for IE8

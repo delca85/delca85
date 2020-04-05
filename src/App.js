@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Iframe from './Iframe.js';
+import { sendEvent } from './billy-features/index.ts';
 
 class App extends Component {
     constructor(props) {
@@ -8,9 +9,13 @@ class App extends Component {
             src: 'http://localhost:3000/iframe.html'
         };
     }
+    componentDidMount() {
+        window.addEventListener('message', event => console.log('event', event.data));
+    }
   
-  onClick() {
-    return Math.random(); 
+    onClick() {
+        const number = Math.random();
+        return window.frames[0].postMessage(number, window.location.origin); 
   }
 
     render() {
@@ -19,7 +24,7 @@ class App extends Component {
             <h1>Parent Window</h1>
             <p>Got Message:</p><input></input>
             <p>Send Message<button onClick={this.onClick}>Hi iFrame!</button></p>
-                <Iframe source={this.state.src} />
+                <Iframe id="the-iframe" source={this.state.src} />
             </div>
         );
     }

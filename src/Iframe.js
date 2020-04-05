@@ -5,7 +5,6 @@ const Iframe = ({ source }) => {
     if (!source) {
         return <div>Loading...</div>;
     }
-    console.log('source', source)
     return (
         // basic bootstrap classes. you can change with yours.
         <div className="col-md-12">

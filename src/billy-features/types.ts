@@ -21,3 +21,7 @@ export interface IMessageEventHandler {
 export interface IDataHandler {
   (payload: any): any;
 }
+
+export interface IListeners {
+  eventName: IDataHandler
+}

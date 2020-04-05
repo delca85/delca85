@@ -1,0 +1,17 @@
+{
+  "name": "billy-features",
+  "version": "1.0.0",
+  "description": "Package that manages communication between Platform and other applications",
+  "main": "./src/index.ts",
+  "scripts": {
+    "tsc": "tsc",
+    "tsc:c": "yarn tsc --noEmit true",
+    "build": "rm -rf dist && yarn tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}
