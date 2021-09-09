@@ -18,5 +18,6 @@ jobs:
         with:
           # token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: delca85/learn-terraform-github-actions
+          token: ${{ secrets.GITHUB_TOKEN }}
           event-type: push_gsl_branch
           client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
