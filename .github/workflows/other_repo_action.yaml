@@ -22,28 +22,14 @@ jobs:
           event-type: push_gsl_branch
           client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
   # pull-request:
-  #   name: Open PR to master and trigger GSL Repo action
+  #   name: Open PR to master and trigger GSL TF Repo action
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - uses: actions/checkout@v2
-  #       name: checkout
-  #     - name: Extract branch name
-  #       shell: bash
-  #       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-  #       id: extract_branch
-  #     - name: Trigger gsl terraform repository action
-  #       uses: peter-evans/repository-dispatch@v1
-  #       with:
-  #         repository: delca85/learn-terraform-github-actions
-  #         token: ${{ secrets.REPO_PAT_TOKEN }}
-  #         event-type: open_gsl_branch_pr
-  #         client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
-
   #     - uses: tzkhan/pr-update-action@v2
   #       name: update-pull-request
   #       with:
   #         repo-token: ${{ secrets.REPO_PAT_TOKEN }}
   #         body-template: |
-  #           Look at [GSL Terraform repo PRs](https://github.com/delca85/learn-terraform-github-actions/pulls?q=is%3Apr+is%3Aopen+label%3A%22automate+pr%22)
+  #           Look at [GSL Terraform automatic created repo PRs](https://github.com/delca85/learn-terraform-github-actions/pulls?q=is%3Apr+is%3Aopen+label%3A%22automate+pr%22)
   #         body-update-action: 'suffix'
   
