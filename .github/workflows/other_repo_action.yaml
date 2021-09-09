@@ -30,6 +30,6 @@ jobs:
   #       with:
   #         repo-token: ${{ secrets.REPO_PAT_TOKEN }}
   #         body-template: |
-  #           Look at [GSL Terraform repo PRs](https://github.com/delca85/learn-terraform-github-actions/pulls?q=is%3Apr+is%3Aopen+label%3A%22automate+pr%22)
+  #           Look at [GSL Terraform automatic created repo PRs](https://github.com/delca85/learn-terraform-github-actions/pulls?q=is%3Apr+is%3Aopen+label%3A%22automate+pr%22)
   #         body-update-action: 'suffix'
   
