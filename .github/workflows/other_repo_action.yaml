@@ -6,7 +6,6 @@ on:
       - 'gsl-**'
 
 jobs:
-  
   GSL_Terraform_PR:
     name: "GSL Terraform PR"
     runs-on: ubuntu-latest
