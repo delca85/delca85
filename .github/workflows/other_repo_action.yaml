@@ -1,4 +1,4 @@
-name: "Trigger GSL Terraform Repo action"
+name: "Trigger GSL Terraform Repository action"
 
 on:
   push:
