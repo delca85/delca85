@@ -22,7 +22,7 @@ jobs:
           event-type: push_gsl_branch
           client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
   # pull-request:
-  #   name: Open PR to master and trigger GSL TF Repo action
+  #   name: Open PR to master and trigger GSL TFC Repo action
   #   runs-on: ubuntu-latest
   #   steps:
   #     - uses: tzkhan/pr-update-action@v2
