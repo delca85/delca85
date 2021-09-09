@@ -22,7 +22,7 @@ jobs:
           event-type: push_gsl_branch
           client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
   # pull-request:
-  #   name: Open PR to master and trigger GSL Repo action
+  #   name: Open PR to master and trigger GSL Terraform Repo action
   #   runs-on: ubuntu-latest
   #   steps:
   #     - uses: actions/checkout@v2
