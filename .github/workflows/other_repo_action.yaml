@@ -1,7 +1,7 @@
 name: "Trigger GSL Terraform Repository Create PR action"
 
 on:
-  push:
+  pull_request:
     branches:
       - 'gsl-**'
 
@@ -25,16 +25,8 @@ jobs:
     name: Open PR to master and trigger GSL Repo action
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        name: checkout
-
-      - uses: repo-sync/pull-request@v2
-        name: pull-request
-        with:
-          destination_branch: "master"
-          pr_title: "Pulling ${{ github.ref }} into main"
-          pr_body: "Automated PR, look at [GSL Repository PRs](https://github.com/delca85/learn-terraform-github-actions/pulls?q=is%3Apr+is%3Aopen+label%3A%22automate+pr%22)"
-          pr_draft: true
+      # - uses: actions/checkout@v2
+      #   name: checkout
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
@@ -46,4 +38,12 @@ jobs:
           token: ${{ secrets.REPO_PAT_TOKEN }}
           event-type: open_gsl_branch_pr
           client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
+
+      - uses: tzkhan/pr-update-action@v2
+        name: update-pull-request
+        with:
+          repo-token: ${{ secrets.REPO_PAT_TOKEN }}
+          body-template: |
+            Look at [GSL Terraform repo PRs](https://github.com/delca85/learn-terraform-github-actions/pulls?q=is%3Apr+is%3Aopen+label%3A%22automate+pr%22)
+          body-update-action: 'suffix'
   
