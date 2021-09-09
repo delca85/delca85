@@ -2,6 +2,8 @@ name: "Trigger GSL Terraform Repo action"
 
 on:
   push:
+    branches:
+      - 'gsl-**'
 
 jobs:
   
