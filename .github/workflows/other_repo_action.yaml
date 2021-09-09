@@ -6,23 +6,23 @@ on:
       - 'gsl-**'
 
 jobs:
-  GSL_Terraform_PR:
-    name: "GSL Terraform PR"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-      - name: Trigger gsl terraform repository action
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          repository: delca85/learn-terraform-github-actions
-          token: ${{ secrets.REPO_PAT_TOKEN }}
-          event-type: push_gsl_branch
-          client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
+  # GSL_Terraform_PR:
+  #   name: "GSL Terraform PR"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Extract branch name
+  #       shell: bash
+  #       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+  #       id: extract_branch
+  #     - name: Trigger gsl terraform repository action
+  #       uses: peter-evans/repository-dispatch@v1
+  #       with:
+  #         repository: delca85/learn-terraform-github-actions
+  #         token: ${{ secrets.REPO_PAT_TOKEN }}
+  #         event-type: push_gsl_branch
+  #         client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
   pull-request:
-    name: Open PR to master
+    name: Open PR to master and trigger GSL Repo action
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -35,4 +35,15 @@ jobs:
           pr_title: "Pulling ${{ github.ref }} into main"
           pr_body: "Automated PR, look at [GSL Repository PRs](https://github.com/delca85/learn-terraform-github-actions/pulls?q=is%3Apr+is%3Aopen+label%3A%22automate+pr%22)"
           pr_draft: true
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Trigger gsl terraform repository action
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: delca85/learn-terraform-github-actions
+          token: ${{ secrets.REPO_PAT_TOKEN }}
+          event-type: open_gsl_branch_pr
+          client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
   
