@@ -4,14 +4,19 @@ on:
   push:
 
 jobs:
-  - name: Extract branch name
-    shell: bash
-    run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-    id: extract_branch
-  - name: Repository Dispatch
-    uses: peter-evans/repository-dispatch@v1
-    with:
-      # token: ${{ secrets.REPO_ACCESS_TOKEN }}
-      repository: delca85/learn-terraform-github-actions
-      event-type: push_gsl_branch
-      client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
+  
+  GSL_Terraform_PR:
+    name: "GSL Terraform PR"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          # token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: delca85/learn-terraform-github-actions
+          event-type: push_gsl_branch
+          client-payload: '{"branch_name": "${{ steps.extract_branch.outputs.branch }}"}'
