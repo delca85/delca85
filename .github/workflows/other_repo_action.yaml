@@ -14,7 +14,7 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - name: Repository Dispatch
+      - name: Trigger gsl repository action
         uses: peter-evans/repository-dispatch@v1
         with:
           repository: delca85/learn-terraform-github-actions
